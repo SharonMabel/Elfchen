@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elfchen-Spiel</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fdf6e3;
+      color: #333;
+      padding: 2em;
+    }
+    h1 {
+      text-align: center;
+      color: #3a7ca5;
+    }
+    .game-section {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 2em;
+      margin-bottom: 2em;
+      position: relative;
+    }
+    .button {
+      background-color: #3a7ca5;
+      color: white;
+      border: none;
+      padding: 1em 2em;
+      font-size: 1em;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 1em;
+    }
+    .button:hover {
+      background-color: #2e5d7a;
+    }
+    .line-box {
+      border: 1px dashed #aaa;
+      padding: 1em;
+      margin: 0.5em 0;
+      min-height: 2em;
+      background-color: #f0f8ff;
+    }
+    .draggable {
+      display: inline-block;
+      background: #cce5ff;
+      margin: 0.5em;
+      padding: 0.5em 1em;
+      border-radius: 10px;
+      cursor: move;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      margin-top: 1em;
+    }
+    .quiz-option {
+      background: #e6f7ff;
+      border: 1px solid #a3d1ff;
+      border-radius: 8px;
+      padding: 1em;
+      cursor: pointer;
+      position: relative;
+    }
+    .quiz-option:hover {
+      background: #d0ecff;
+    }
+    .audio-button {
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+      background: #3a7ca5;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 2em;
+      height: 2em;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .reward-box {
+      position: absolute;
+      top: 1em;
+      left: 1em;
+      background: #fffae6;
+      border: 2px dashed #d4af37;
+      border-radius: 8px;
+      padding: 0.5em 1em;
+      font-weight: bold;
+      color: #b8860b;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dein Elfchen-Abenteuer</h1>
+
+  <div class="game-section" id="reihenfolge-section">
+    <div class="reward-box" id="reward-reihenfolge">Buchstabe: E</div>
+    <h2>🎯 Elfchen-Reihenfolge-Spiel</h2>
+    <p>Ordne die Wortkarten in die richtige Elfchen-Struktur (1-2-3-4-1 Wörter).</p>
+    <div id="elfchen-container">
+      <div class="line-box" data-line="1">Zeile 1</div>
+      <div class="line-box" data-line="2">Zeile 2</div>
+      <div class="line-box" data-line="3">Zeile 3</div>
+      <div class="line-box" data-line="4">Zeile 4</div>
+      <div class="line-box" data-line="5">Zeile 5</div>
+    </div>
+    <div id="word-bank">
+      <div class="draggable" draggable="true">Zocken</div>
+      <div class="draggable" draggable="true">Endlich Wochenende</div>
+      <div class="draggable" draggable="true">Controller in Hand</div>
+      <div class="draggable" draggable="true">Noch eine Runde, dann</div>
+      <div class="draggable" draggable="true">Mitternacht</div>
+    </div>
+    <button class="button" onclick="checkOrder()">Prüfen</button>
+  </div>
+
+  <div class="game-section" id="quiz-section">
+    <div class="reward-box" id="reward-quiz">Buchstabe: L</div>
+    <h2>🕵️‍♀️ Welches ist ein echtes Elfchen?</h2>
+    <p>Klicke auf das Gedicht, das der Elfchen-Form entspricht! 🔊 = vorlesen</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkQuiz(this, true)">
+        Vertrauen<br>
+        Geheimnisse Behalten<br>
+        Wird mal schwer<br>
+        Aber lohnt sich immer<br>
+        Freundschaft
+        <button class="audio-button" onclick="event.stopPropagation(); playAudio('vertrauen')">🔊</button>
+      </div>
+      <div class="quiz-option" onclick="checkQuiz(this, false)">
+        Erde<br>
+        Überall Plastik<br>
+        Tiere, Wälder leiden<br>
+        Kleine Tat, großes Wunder<br>
+        Zukunft Zukunft
+        <button class="audio-button" onclick="event.stopPropagation(); playAudio('erde')">🔊</button>
+      </div>
+      <div class="quiz-option" onclick="checkQuiz(this, false)">
+        Angst<br>
+        Klopfendes Herz<br>
+        Ersten Schritt machen<br>
+        Gewinnen, verlieren, versuchen, scheitern<br>
+        Mutig bleiben Hoffnung
+        <button class="audio-button" onclick="event.stopPropagation(); playAudio('angst')">🔊</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="vertrauen" src="audio/vertrauen.mp3"></audio>
+  <audio id="erde" src="audio/erde.mp3"></audio>
+  <audio id="angst" src="audio/angst.mp3"></audio>
+
+  <script>
+    const draggables = document.querySelectorAll('.draggable');
+    const lineBoxes = document.querySelectorAll('.line-box');
+
+    draggables.forEach(draggable => {
+      draggable.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', draggable.textContent);
+      });
+    });
+
+    lineBoxes.forEach(box => {
+      box.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+
+      box.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const data = e.dataTransfer.getData('text');
+        box.textContent = data;
+      });
+    });
+
+    function checkOrder() {
+      const correct = ["Zocken", "Endlich Wochenende", "Controller in Hand", "Noch eine Runde, dann", "Mitternacht"];
+      let success = true;
+      lineBoxes.forEach((box, index) => {
+        if (!box.textContent.includes(correct[index])) {
+          success = false;
+        }
+      });
+      if (success) {
+        document.getElementById('reward-reihenfolge').style.display = 'inline-block';
+        alert("🎉 Super! Dein Elfchen stimmt! Du erhältst den Buchstaben: E");
+      } else {
+        alert("❌ Noch nicht ganz. Versuch's nochmal!");
+      }
+    }
+
+    function checkQuiz(element, isCorrect) {
+      if (isCorrect) {
+        document.getElementById('reward-quiz').style.display = 'inline-block';
+        alert("🎯 Richtig erkannt – das ist ein Elfchen! Du erhältst den Buchstaben: L");
+      } else {
+        alert("🙈 Leider falsch. Versuch es nochmal!");
+      }
+    }
+
+    function playAudio(id) {
+      const audio = document.getElementById(id);
+      if (audio) {
+        audio.play();
+      }
+    }
+  </script>
+</body>
+</html>
