@@ -141,10 +141,50 @@ document.head.appendChild(style);
   </style>
 </head>
 <body>
+  <section id="was-ist-ein-elfchen" class="info-box">
+  <h2>📚 Was ist ein Elfchen?</h2>
+  <p>
+    Ein <strong>Elfchen</strong> ist ein kleines Gedicht mit genau <strong>11 Wörtern</strong>. 
+    Deshalb heißt es auch "Elfchen" – von der Zahl <em>elf</em>!
+  </p>
+
+  <h3>📏 Wie ist ein Elfchen aufgebaut?</h3>
+  <p>Ein Elfchen hat 5 Zeilen mit festen Regeln:</p>
+  <ul>
+    <li><strong>1. Zeile:</strong> 1 Nomen (z. B. <em>Hund</em>, <em>Freude</em>, <em>Schule</em>)</li>
+    <li><strong>2. Zeile:</strong> 2 Wörter – oft Adjektive oder Verben (z. B. <em>ist groß</em>, <em>läuft schnell</em>)</li>
+    <li><strong>3. Zeile:</strong> 3 Wörter – beschreibt <em>wo</em>, <em>wie</em>, <em>was</em> oder <em>wann</em></li>
+    <li><strong>4. Zeile:</strong> 4 Wörter – ein ganzer Gedanke zu deinem Thema</li>
+    <li><strong>5. Zeile:</strong> 1 Wort – der Abschluss, oft wieder ein Nomen</li>
+  </ul>
+  <p><strong>Zusammen:</strong> 1 + 2 + 3 + 4 + 1 = <strong>11 Wörter</strong>.</p>
+  <p><em>Wichtig:</em> Diese Wortarten-Regeln sind Hilfen – das Wichtigste ist, dass dein Elfchen gut klingt und die <strong>11-Wörter-Regel</strong> stimmt!</p>
+
+  <h3>✨ Was macht ein Elfchen besonders?</h3>
+  <ul>
+    <li>Es ist <strong>kurz und knackig</strong> – perfekt, um schnell einen Gedanken festzuhalten.</li>
+    <li>Es hat einen <strong>festen Rhythmus</strong> durch die Wörter-Regel.</li>
+    <li>Du kannst alles beschreiben: Gefühle, Erlebnisse, Jahreszeiten, Tiere …</li>
+    <li>Es <strong>reimt sich nicht</strong> – das macht es einfacher!</li>
+    <li>Die <strong>11-Wörter-Regel</strong> ist das Wichtigste – bei den Wortarten darfst du kreativ sein.</li>
+    <li><strong>Jedes Wort zählt</strong> – du musst genau überlegen, welche Wörter du wählst.</li>
+  </ul>
+
+  <h3>✍️ Tipps zum Schreiben</h3>
+  <ul>
+    <li>Such dir ein <strong>Thema</strong> aus und finde ein passendes Nomen (z. B. <em>Freundschaft</em>, <em>Handy</em>, <em>Regen</em>).</li>
+    <li>Denk an die <strong>11-Wörter-Regel</strong>: 1 – 2 – 3 – 4 – 1 Wörter pro Zeile.</li>
+    <li>Zähl mit, damit du die richtige Anzahl hast.</li>
+    <li>Denk an die Wortarten – aber <strong>sei kreativ</strong>, wenn es besser klingt!</li>
+    <li>Lies es laut vor – <strong>klingt es gut?</strong> Dann ist es richtig!</li>
+  </ul>
+
+  <p><strong>Ein Elfchen</strong> ist wie ein <em>Schnappschuss in Worten</em> – klein, aber voller Leben!</p>
+</section>
   <h1>Dein Elfchen-Abenteuer</h1>
 
   <div class="game-section" id="reihenfolge-section">
-    <div class="reward-box" id="reward-reihenfolge">Buchstabe: E</div>
+    <div class="reward-box" id="reward-reihenfolge">Buchstabe: Ü</div>
     <h2>🎯 Elfchen-Reihenfolge-Spiel</h2>
     <p>Ordne die Wortkarten in die richtige Elfchen-Struktur (1-2-3-4-1 Wörter).</p>
     <div id="elfchen-container 1">
@@ -207,7 +247,7 @@ document.head.appendChild(style);
   </div>
 
   <div class="game-section" id="quiz-section">
-    <div class="reward-box" id="reward-quiz">Buchstabe: L</div>
+    <div class="reward-box" id="reward-quiz">Buchstabe: F</div>
     <h2>🕵️‍♀️ Welches ist ein echtes Elfchen?</h2>
     <p>Klicke auf das Gedicht, das der Elfchen-Form entspricht!</p>
     <div class="quiz-options">
@@ -263,7 +303,7 @@ document.head.appendChild(style);
   </div>
 </div>
 <div class="game-section" id="lueckentext-section">
-  <div class="reward-box" id="reward-lueckentext">Buchstabe: N</div>
+  <div class="reward-box" id="reward-lueckentext">Buchstabe: C</div>
   <h2>📝 Lückentext-Elfchen</h2>
   <p>Ergänze die fehlenden Wörter im Elfchen! Tipp: Schau auf die Buchstabenhilfe und die Emojis!</p>
   
@@ -278,14 +318,14 @@ document.head.appendChild(style);
   <button class="button" onclick="checkLueckentext()">Prüfen</button>
 </div>
   <div class="game-section" id="memory-section">
-    <div class="reward-box" id="reward-memory">Buchstabe: R</div>
+    <div class="reward-box" id="reward-memory">Buchstabe: E</div>
     <h2>🎓 Elfchen-Memory</h2>
     <p>Klicke auf zwei Karten. Finde die zusammengehörigen Elfchen-Zeilen!</p>
     <div class="memory-grid" id="memory-grid"></div>
     <button class="button" onclick="resetMemory()">Neustarten</button>
   </div>
   <div class="game-section" id="wortarten-section">
-    <div class="reward-box" id="reward-wortarten">Buchstabe: M</div>
+    <div class="reward-box" id="reward-wortarten">Buchstabe: S</div>
       <h2>📝 Elfchen-Wortarten-Abenteuer</h2>
     <div class="selector">
       <button class="noun-btn" onclick="setCurrentType('noun')">Nomen</button>
