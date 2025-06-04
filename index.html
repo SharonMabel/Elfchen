@@ -93,6 +93,51 @@
       color: #b8860b;
       display: none;
     }
+        .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1em;
+      margin-top: 1em;
+    }
+    .card {
+      background: #e6f7ff;
+      border: 2px solid #3a7ca5;
+      border-radius: 10px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+    .card.revealed {
+      background: #d0ecff;
+    }
+     .word {
+      cursor: pointer;
+      padding: 0.2em 0.4em;
+      border-radius: 5px;
+      margin: 0.1em;
+      display: inline-block;
+    }
+    .selected-noun { background-color: #ffb3b3; }
+    .selected-verb { background-color: #b3ffb3; }
+    .selected-adj { background-color: #b3cfff; }
+    .selector {
+      margin: 1em 0;
+    }
+     .noun-btn { background-color: #ffb3b3; }
+    .verb-btn { background-color: #b3ffb3; }
+    .adj-btn { background-color: #b3cfff; }
+
+    const style = document.createElement('style');
+style.textContent = `
+  .hint { outline: 2px dashed gold; }
+  .wrong { animation: blink 1s infinite; }
+  @keyframes blink { 0% { background: #fdd; } 50% { background: #fff; } 100% { background: #fdd; } }
+`;
+document.head.appendChild(style);
   </style>
 </head>
 <body>
@@ -102,58 +147,154 @@
     <div class="reward-box" id="reward-reihenfolge">Buchstabe: E</div>
     <h2>🎯 Elfchen-Reihenfolge-Spiel</h2>
     <p>Ordne die Wortkarten in die richtige Elfchen-Struktur (1-2-3-4-1 Wörter).</p>
-    <div id="elfchen-container">
+    <div id="elfchen-container 1">
       <div class="line-box" data-line="1">Zeile 1</div>
       <div class="line-box" data-line="2">Zeile 2</div>
       <div class="line-box" data-line="3">Zeile 3</div>
       <div class="line-box" data-line="4">Zeile 4</div>
       <div class="line-box" data-line="5">Zeile 5</div>
     </div>
-    <div id="word-bank">
-      <div class="draggable" draggable="true">Zocken</div>
-      <div class="draggable" draggable="true">Endlich Wochenende</div>
-      <div class="draggable" draggable="true">Controller in Hand</div>
-      <div class="draggable" draggable="true">Noch eine Runde, dann</div>
-      <div class="draggable" draggable="true">Mitternacht</div>
+    <div id="word-bank 1">
+      <div class="draggable" draggable="true">Knospen</div>
+      <div class="draggable" draggable="true">werden grün</div>
+      <div class="draggable" draggable="true">duftet nach Regen</div>
+      <div class="draggable" draggable="true">Bienen summen um Blumen</div>
+      <div class="draggable" draggable="true">Neuanfang</div>
     </div>
+    <div id="elfchen-container 2">
+        <div class="line-box" data-line="1">Zeile 1</div>
+        <div class="line-box" data-line="2">Zeile 2</div>
+        <div class="line-box" data-line="3">Zeile 3</div>
+        <div class="line-box" data-line="4">Zeile 4</div>
+        <div class="line-box" data-line="5">Zeile 5</div>
+      </div>
+      <div id="word-bank 2">
+        <div class="draggable" draggable="true">Eiszeit</div>
+        <div class="draggable" draggable="true">Barfuß laufen</div>
+        <div class="draggable" draggable="true">Sonne auf Haut</div>
+        <div class="draggable" draggable="true">Lachen, springen, Wasser spritzt</div>
+        <div class="draggable" draggable="true">Ferien</div>
+      </div>
+        <div id="elfchen-container">
+    <div class="line-box" data-line="1">Zeile 1</div>
+    <div class="line-box" data-line="2">Zeile 2</div>
+    <div class="line-box" data-line="3">Zeile 3</div>
+    <div class="line-box" data-line="4">Zeile 4</div>
+    <div class="line-box" data-line="5">Zeile 5</div>
+  </div>
+  <div id="word-bank">
+    <div class="draggable" draggable="true">Blätter</div>
+    <div class="draggable" draggable="true">fallen bunt</div>
+    <div class="draggable" draggable="true">rascheln unter Füßen</div>
+    <div class="draggable" draggable="true">Wind pustet durch Bäume</div>
+    <div class="draggable" draggable="true">Übergang</div>
+  </div>
+  <div id="elfchen-container">
+    <div class="line-box" data-line="1">Zeile 1</div>
+    <div class="line-box" data-line="2">Zeile 2</div>
+    <div class="line-box" data-line="3">Zeile 3</div>
+    <div class="line-box" data-line="4">Zeile 4</div>
+    <div class="line-box" data-line="5">Zeile 5</div>
+  </div>
+  <div id="word-bank">
+    <div class="draggable" draggable="true">Kalt</div>
+    <div class="draggable" draggable="true">Schnee bedeckt</div>
+    <div class="draggable" draggable="true">Fenster sind beschlagen</div>
+    <div class="draggable" draggable="true">Drinnen Kerzen, draußen Stille</div>
+    <div class="draggable" draggable="true">Weihnachten</div>
+  </div>
     <button class="button" onclick="checkOrder()">Prüfen</button>
   </div>
 
   <div class="game-section" id="quiz-section">
     <div class="reward-box" id="reward-quiz">Buchstabe: L</div>
     <h2>🕵️‍♀️ Welches ist ein echtes Elfchen?</h2>
-    <p>Klicke auf das Gedicht, das der Elfchen-Form entspricht! 🔊 = vorlesen</p>
+    <p>Klicke auf das Gedicht, das der Elfchen-Form entspricht!</p>
     <div class="quiz-options">
-      <div class="quiz-option" onclick="checkQuiz(this, true)">
+      <div class="quiz-option" onclick="checkQuiz(this, false)">
         Vertrauen<br>
-        Geheimnisse Behalten<br>
+        Geheimnisse für sich behalten<br>
         Wird mal schwer<br>
         Aber lohnt sich immer<br>
         Freundschaft
-        <button class="audio-button" onclick="event.stopPropagation(); playAudio('vertrauen')">🔊</button>
       </div>
-      <div class="quiz-option" onclick="checkQuiz(this, false)">
+      <div class="quiz-option" onclick="checkQuiz(this, true)">
         Erde<br>
         Überall Plastik<br>
-        Tiere, Wälder leiden<br>
+        Tiere, Wälder, leiden<br>
         Kleine Tat, großes Wunder<br>
-        Zukunft Zukunft
-        <button class="audio-button" onclick="event.stopPropagation(); playAudio('erde')">🔊</button>
+        Zukunft 
       </div>
       <div class="quiz-option" onclick="checkQuiz(this, false)">
         Angst<br>
-        Klopfendes Herz<br>
-        Ersten Schritt machen<br>
+        Klopfendes, pochendes Herz<br>
+        Ersten Schritt machen <br>
         Gewinnen, verlieren, versuchen, scheitern<br>
         Mutig bleiben Hoffnung
-        <button class="audio-button" onclick="event.stopPropagation(); playAudio('angst')">🔊</button>
       </div>
     </div>
   </div>
+<div class="game-section" id="emoji-elfchen-section">
+  <div class="reward-box" id="reward-emoji">Buchstabe: H</div>
+  <h2>🎉 Emoji-Elfchen-Rätsel</h2>
+  <p>Welches Elfchen passt zu diesen Emojis? ⏸️⚽🎧</p>
+  <div class="quiz-options">
+    <div class="quiz-option" onclick="checkQuizEmoji(this, true)">
+      Pause<br>
+      Raus hier<br>
+      Fußball, Musik hören<br>
+      20 Minuten sind zu<br>
+      Kurz
+    </div>
+    <div class="quiz-option" onclick="checkQuizEmoji(this, false)">
+      Angst<br>
+      Klopfendes Herz<br>
+      Ersten Schritt machen<br>
+      Gewinnen, verlieren, scheitern<br>
+      Mut
+    </div>
+    <div class="quiz-option" onclick="checkQuizEmoji(this, false)">
+      Blätter<br>
+      fallen bunt<br>
+      rascheln unter Füßen<br>
+      Wind pustet durch Bäume<br>
+      Übergang
+    </div>
+  </div>
+</div>
+<div class="game-section" id="lueckentext-section">
+  <div class="reward-box" id="reward-lueckentext">Buchstabe: N</div>
+  <h2>📝 Lückentext-Elfchen</h2>
+  <p>Ergänze die fehlenden Wörter im Elfchen! Tipp: Schau auf die Buchstabenhilfe und die Emojis!</p>
+  
+  <p>
+    <strong>Ferien</strong> 🏖️<br>
+    <input type="text" id="luecke1" placeholder="N..."> machen ⛔<br>
+    Chillen, <input type="text" id="luecke2" placeholder="Z...">, schwimmen 🎮<br>
+    Keine Hausaufgaben, <input type="text" id="luecke3" placeholder="K... S..."> ⛔🏫<br>
+    <input type="text" id="luecke4" placeholder="A..."> 😴
+  </p>
 
-  <audio id="vertrauen" src="audio/vertrauen.mp3"></audio>
-  <audio id="erde" src="audio/erde.mp3"></audio>
-  <audio id="angst" src="audio/angst.mp3"></audio>
+  <button class="button" onclick="checkLueckentext()">Prüfen</button>
+</div>
+  <div class="game-section" id="memory-section">
+    <div class="reward-box" id="reward-memory">Buchstabe: R</div>
+    <h2>🎓 Elfchen-Memory</h2>
+    <p>Klicke auf zwei Karten. Finde die zusammengehörigen Elfchen-Zeilen!</p>
+    <div class="memory-grid" id="memory-grid"></div>
+    <button class="button" onclick="resetMemory()">Neustarten</button>
+  </div>
+  <div class="game-section" id="wortarten-section">
+    <div class="reward-box" id="reward-wortarten">Buchstabe: M</div>
+      <h2>📝 Elfchen-Wortarten-Abenteuer</h2>
+    <div class="selector">
+      <button class="noun-btn" onclick="setCurrentType('noun')">Nomen</button>
+      <button class="adj-btn" onclick="setCurrentType('adj')">Adjektive</button>
+      <button class="verb-btn" onclick="setCurrentType('verb')">Verben</button>
+    </div>
+
+    <p id="text"></p>
+  </div>
 
   <script>
     const draggables = document.querySelectorAll('.draggable');
@@ -208,6 +349,222 @@
         audio.play();
       }
     }
+    function checkQuizEmoji(element, isCorrect) {
+      if (isCorrect) {
+       document.getElementById('reward-emoji').style.display = 'inline-block';
+       alert('🎉 Richtig erkannt! Du erhältst den Buchstaben: H');
+     } else {
+        alert('❌ Das ist nicht das passende Elfchen. Versuch es nochmal!');
+      }
+   }
+  function checkLueckentext() {
+    const l1 = document.getElementById('luecke1').value.trim().toLowerCase();
+    const l2 = document.getElementById('luecke2').value.trim().toLowerCase();
+    const l3 = document.getElementById('luecke3').value.trim().toLowerCase();
+    const l4 = document.getElementById('luecke4').value.trim().toLowerCase();
+
+    if (l1 === 'nichts' && l2 === 'zocken' && l3 === 'keine schule' && l4 === 'ausschlafen') {
+      document.getElementById('reward-lueckentext').style.display = 'inline-block';
+      alert('🎉 Super! Du hast das Elfchen richtig ergänzt! Du erhältst den Buchstaben: N');
+    } else {
+      alert('❌ Schau dir die Buchstaben und Emojis an und versuch es erneut!');
+    }
+  }
+      const cards = [
+      {id: 1, text: "Sonne"},
+      {id: 1, text: "scheint hell draußen"},
+      {id: 2, text: "Ferien"},
+      {id: 2, text: "keine Hausaufgaben"},
+      {id: 3, text: "Angst"},
+      {id: 3, text: "klopfendes Herz"},
+      {id: 4, text: "Pause"},
+      {id: 4, text: "Fußball, Musik hören"},
+      {id: 5, text: "Blätter"},
+      {id: 5, text: "fallen bunt"},
+      {id: 6, text: "Vertrauen"},
+      {id: 6, text: "lohnt sich immer"},
+      {id: 7, text: "Regen"},
+      {id: 7, text: "fällt auf das Dach"},
+      {id: 8, text: "Eiszeit"},
+      {id: 8, text: "Sonne auf Haut"}
+    ];
+
+    let shuffledCards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function setupMemory() {
+      const grid = document.getElementById('memory-grid');
+      grid.innerHTML = '';
+      shuffledCards = shuffle([...cards]);
+      shuffledCards.forEach((card, index) => {
+        const div = document.createElement('div');
+        div.classList.add('card');
+        div.dataset.id = card.id;
+        div.dataset.index = index;
+        div.innerText = '?';
+        div.addEventListener('click', () => revealCard(div));
+        grid.appendChild(div);
+      });
+    }
+
+    function revealCard(div) {
+      if (flippedCards.length >= 2 || div.classList.contains('revealed')) return;
+      div.classList.add('revealed');
+      const card = shuffledCards[div.dataset.index];
+      div.innerText = card.text;
+      flippedCards.push(div);
+      if (flippedCards.length === 2) {
+        setTimeout(checkMatch, 1000);
+      }
+    }
+
+    function checkMatch() {
+      const [card1, card2] = flippedCards;
+      if (card1.dataset.id === card2.dataset.id) {
+        matchedPairs++;
+        if (matchedPairs === 8) {
+          document.getElementById('reward-memory').style.display = 'inline-block';
+          alert('🎉 Super! Alle Paare gefunden. Du erhältst den Buchstaben: R');
+        }
+      } else {
+        card1.classList.remove('revealed');
+        card2.classList.remove('revealed');
+        card1.innerText = '?';
+        card2.innerText = '?';
+      }
+      flippedCards = [];
+    }
+
+    function resetMemory() {
+      matchedPairs = 0;
+      flippedCards = [];
+      setupMemory();
+      document.getElementById('reward-memory').style.display = 'none';
+    }
+
+    setupMemory();
+     const textContent = `Ein Elfchen ist viel mehr als nur ein kurzes Gedicht. Es ist eine Einladung, mit Sprache zu spielen, Worte zu finden, die sonst vielleicht ungesagt bleiben. In nur elf Wörtern entsteht eine kleine Welt: ein Gedanke, eine Stimmung, ein Gefühl, manchmal sogar ein ganzes Abenteuer. Elfchen helfen uns, genau hinzusehen – auf das, was wir fühlen, was wir denken, und was wir sagen wollen. Sie zeigen, wie stark ein einziges Wort sein kann, und wie groß ein kleiner Moment werden darf, wenn wir ihm einen Rahmen geben. Elfchen fordern uns heraus, mit wenig viel zu sagen. Sie trainieren unseren Kopf, unser Herz und unsere Fantasie. Sie bringen uns dazu, über den Tellerrand hinauszudenken: Welche Adjektive passen zu dem, was ich fühle? Welche Verben erzählen von dem, was passiert? Und welche Nomen geben meiner Geschichte ein Gesicht, einen Ort, eine Farbe? Ein Elfchen kann der Anfang von allem sein: der erste Satz eines Gedichts, der Einstieg in ein Tagebuch, ein Gedanke, der größer wird, je mehr wir darüber nachdenken. Manchmal ist ein Elfchen auch einfach ein kleiner Zauber – ein Gedanke, den wir festhalten, bevor er davonfliegt. Es ist leise und still, aber es kann laut in uns nachklingen. Wer ein Elfchen schreibt, lernt nicht nur, die Regeln eines Gedichts zu verstehen – er übt, Sprache bewusst einzusetzen, Gedanken zu ordnen, Gefühle zuzulassen. Er übt, ehrlich zu sein. Denn Elfchen zwingen uns, zu reduzieren, zu entscheiden: Was ist wirklich wichtig? Was muss gesagt werden – und was darf unausgesprochen bleiben? Vielleicht wird ein Elfchen später einmal der erste Schritt in einen eigenen Gedichtband, der Anfang eines Liebesbriefes, der Text auf einer Postkarte, die jemand zum Geburtstag bekommt. Vielleicht bleibt es einfach eine kleine Notiz am Rand eines Heftes, die später, wenn wir erwachsen sind, ein Lächeln auf unser Gesicht zaubert. Elfchen sind klein, ja. Aber sie zeigen: Worte sind groß. Und wer lernt, Worte zu wählen, der lernt auch, zuzuhören.`;
+
+const wordTypes = {
+  // Nomen
+  'heftes': 'noun','liebesbriefes': 'noun','liebesbriefs': 'noun','elfchen': 'noun', 'einladung': 'noun', 'sprache': 'noun', 'worte': 'noun', 'wörtern': 'noun', 'welt': 'noun', 'gedanke': 'noun', 'stimmung': 'noun', 'gefühl': 'noun', 'abenteuer': 'noun', 'wort': 'noun', 'moment': 'noun', 'rahmen': 'noun', 'kopf': 'noun', 'herz': 'noun', 'fantasie': 'noun', 'tellerrand': 'noun', 'adjektive': 'noun', 'verben': 'noun', 'nomen': 'noun', 'geschichte': 'noun', 'gesicht': 'noun', 'ort': 'noun', 'farbe': 'noun', 'anfang': 'noun', 'satz': 'noun', 'gedichts': 'noun', 'einstieg': 'noun', 'tagebuch': 'noun', 'zauber': 'noun', 'regeln': 'noun', 'gedanken': 'noun', 'gefühle': 'noun', 'schritt': 'noun', 'gedichtband': 'noun', 'liebesbrief': 'noun', 'text': 'noun', 'postkarte': 'noun', 'geburtstag': 'noun', 'notiz': 'noun', 'rand': 'noun', 'heft': 'noun', 'lächeln': 'noun',
+  
+  // Adjektive
+  'kleine': 'adj','größer': 'adj','kleiner': 'adj','genau': 'adj','ganzes': 'adj','groß': 'adj', 'kurzes': 'adj', 'klein': 'adj', 'kurz': 'adj', 'leise': 'adj', 'laut': 'adj', 'ehrlich': 'adj', 'wichtig': 'adj', 'still': 'adj', 'unvergessen': 'adj', 'besonders': 'adj', 'bewusst': 'adj', 'ganz': 'adj', 'stark': 'adj', 'einzig': 'adj', 'wenig': 'adj', 'viel': 'adj', 'unausgesprochen': 'adj', 'erst': 'adj', 'eigen': 'adj', 'erwachsen': 'adj',
+  
+  // Verben
+ 'zuzuhören': 'verb','lernt': 'verb','zaubert': 'verb','bleibt': 'verb','bekommt': 'verb','darf': 'verb','gesagt': 'verb', 'muss': 'verb','zwingen': 'verb','zuzulassen': 'verb','einzusetzen': 'verb','übt': 'verb','schreibt': 'verb','lernt': 'verb','davonfliegt': 'verb','ist': 'verb','wird': 'verb','kann': 'verb','passiert': 'verb','fühle': 'verb','darf': 'verb','entsteht': 'verb','ungesagt': 'verb','schreiben': 'verb', 'fühlen': 'verb', 'denken': 'verb', 'ordnen': 'verb', 'zulassen': 'verb', 'sagen': 'verb', 'zeigen': 'verb', 'üben': 'verb', 'zuhören': 'verb', 'sein': 'verb', 'spielen': 'verb', 'finden': 'verb', 'bleiben': 'verb', 'entstehen': 'verb', 'helfen': 'verb', 'hinzusehen': 'verb', 'wollen': 'verb', 'werden': 'verb', 'geben': 'verb', 'fordern': 'verb', 'trainieren': 'verb', 'bringen': 'verb', 'hinauszudenken': 'verb', 'passen': 'verb', 'erzählen': 'verb', 'passieren': 'verb', 'nachdenken': 'verb', 'festhalten': 'verb', 'davonfliegen': 'verb', 'nachklingen': 'verb', 'lernen': 'verb', 'verstehen': 'verb', 'einsetzen': 'verb', 'reduzieren': 'verb', 'entscheiden': 'verb', 'bekommen': 'verb', 'zaubern': 'verb', 'wählen': 'verb'
+};
+
+    let currentType = '';
+
+    function setCurrentType(type) {
+      currentType = type;
+    }
+
+    function createText() {
+      const container = document.getElementById('text');
+      const words = textContent.split(' ');
+      container.innerHTML = '';
+      words.forEach(word => {
+        const span = document.createElement('span');
+        span.classList.add('word');
+        span.textContent = word;
+        span.onclick = () => toggleWord(span, word.toLowerCase().replace(/[^a-zäöüß]/g, ''));
+        container.appendChild(span);
+        container.appendChild(document.createTextNode(' '));
+      });
+    }
+
+    function toggleWord(span, word) {
+      if (!currentType) {
+        span.classList.remove('selected-noun', 'selected-verb', 'selected-adj');
+        return;
+      }
+      if (span.classList.contains('selected-noun') || span.classList.contains('selected-verb') || span.classList.contains('selected-adj')) {
+        span.classList.remove('selected-noun', 'selected-verb', 'selected-adj');
+      } else {
+        if (currentType === 'noun') span.classList.add('selected-noun');
+        if (currentType === 'verb') span.classList.add('selected-verb');
+        if (currentType === 'adj') span.classList.add('selected-adj');
+      }
+      checkAllCorrect();
+    }
+
+    function checkAllCorrect() {
+      const spans = document.querySelectorAll('.word');
+      let correct = true;
+      spans.forEach(span => {
+        const cleanWord = span.textContent.toLowerCase().replace(/[^a-zäöüß]/g, '');
+        const expected = wordTypes[cleanWord];
+        if (expected) {
+          if (expected === 'noun' && !span.classList.contains('selected-noun')) correct = false;
+          if (expected === 'verb' && !span.classList.contains('selected-verb')) correct = false;
+          if (expected === 'adj' && !span.classList.contains('selected-adj')) correct = false;
+        }
+      });
+      if (correct) {
+        document.getElementById('reward-wortarten').style.display = 'inline-block';
+        alert('🎉 Super! Du hast alle Wortarten richtig markiert. Du erhältst den Buchstaben: M');
+      }
+    }
+
+    createText();
+  function autofillWortarten() {
+  const spans = document.querySelectorAll('.word');
+  spans.forEach(span => {
+    const cleanWord = span.textContent.toLowerCase().replace(/[^a-zäöüß]/g, '');
+    const expected = wordTypes[cleanWord];
+    span.classList.remove('selected-noun', 'selected-verb', 'selected-adj');
+    if (expected === 'noun') span.classList.add('selected-noun');
+    if (expected === 'verb') span.classList.add('selected-verb');
+    if (expected === 'adj') span.classList.add('selected-adj');
+  });
+
+  document.getElementById('reward-wortarten').style.display = 'inline-block';
+  alert('🎉 Automatisch markiert! Alle Wortarten sind jetzt farbig zugeordnet.');
+}
+
+// Passwortschutz für die Automatik-Funktion
+function passwordCheck() {
+  const pass = prompt('Bitte Passwort eingeben:');
+  if (pass === 'DajaSharon') {
+    autofillWortarten();
+    const hintButton = document.createElement('button');
+    hintButton.textContent = '👩‍🏫 Schülermodus aktivieren';
+    hintButton.classList.add('button');
+    hintButton.onclick = () => {
+      showHints();
+      hintButton.disabled = true;
+    };
+    document.querySelector('#wortarten-section').appendChild(hintButton);
+  } else {
+    alert('❌ Falsches Passwort. Zugriff verweigert.');
+  }
+}
+
+// Button hinzufügen
+const buttonContainer = document.querySelector('#wortarten-section');
+const checkButton = document.createElement('button');
+checkButton.textContent = '🔍 Automatisch überprüfen';
+checkButton.classList.add('button');
+checkButton.onclick = passwordCheck;
+buttonContainer.appendChild(checkButton);
+
+// CSS für Hinweise
+const style = document.createElement('style');
+style.textContent = `
+  .hint { outline: 2px dashed gold; }
+  .wrong { animation: blink 1s infinite; }
+  @keyframes blink { 0% { background: #fdd; } 50% { background: #fff; } 100% { background: #fdd; } }
+`;
+document.head.appendChild(style);
+  </script>
   </script>
 </body>
 </html>
