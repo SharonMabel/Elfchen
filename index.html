@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dein Elfchen-Abenteuer</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/drag-drop-touch"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
@@ -25,6 +28,7 @@
       color: var(--text-color);
       padding: 1em;
       line-height: 1.6;
+      margin: 0;
     }
 
     h1, h2, h3 {
@@ -33,20 +37,9 @@
       margin-bottom: 1rem;
     }
 
-    h1 {
-        font-size: 2.5em;
-    }
-    
-    h2 {
-        border-bottom: 3px solid var(--secondary-color);
-        padding-bottom: 0.5rem;
-    }
-    
-    h3 {
-        text-align: left;
-        border-bottom: none;
-        color: #e76f51;
-    }
+    h1 { font-size: 2.5em; }
+    h2 { border-bottom: 3px solid var(--secondary-color); padding-bottom: 0.5rem; }
+    h3 { text-align: left; border-bottom: none; color: #e76f51; }
 
     .info-box, .game-section {
       background: var(--white);
@@ -61,60 +54,41 @@
     
     .reward-box {
         position: absolute;
-        top: 1.5em;
-        right: 1.5em;
-        background: var(--secondary-color);
-        border-radius: 10px;
-        padding: 0.5em 1em;
-        font-weight: bold;
-        color: var(--text-color);
-        display: none;
-        animation: fadeIn 0.5s ease-in-out;
+        top: 1.5em; right: 1.5em; background: var(--secondary-color);
+        border-radius: 10px; padding: 0.5em 1em; font-weight: bold;
+        color: var(--text-color); display: none; animation: fadeIn 0.5s ease-in-out;
     }
 
     .button {
-      background-color: var(--primary-color);
-      color: var(--white);
-      border: none;
-      padding: 0.8em 1.5em;
-      font-size: 1.1em;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
-      display: inline-block;
-      margin: 1em 0.5em 0;
-      transition: background-color 0.3s, transform 0.2s;
+      background-color: var(--primary-color); color: var(--white); border: none;
+      padding: 0.8em 1.5em; font-size: 1.1em; font-weight: 700;
+      border-radius: 10px; cursor: pointer; display: inline-block;
+      margin: 1em 0.5em 0; transition: background-color 0.3s, transform 0.2s;
     }
-    .button-center {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .button:hover {
-      background-color: #218f81;
-      transform: translateY(-2px);
-    }
+    .button-center { display: block; margin-left: auto; margin-right: auto; }
+    .button:hover { background-color: #218f81; transform: translateY(-2px); }
     
     .drag-puzzle {
-        background-color: #f0f7f6;
-        padding: 1rem;
-        border-radius: 10px;
-        margin-top: 1rem;
-        border: 2px solid #ccc;
+        background-color: #f0f7f6; padding: 1rem; border-radius: 10px;
+        margin-top: 1rem; border: 2px solid #ccc;
     }
     .line-box {
       border: 2px dashed #a8dadc; padding: 1em; margin: 0.5em 0; min-height: 3.5em;
       border-radius: 10px; background-color: var(--white); transition: background-color 0.3s, border-color 0.3s;
     }
     .line-box.over { border-color: var(--primary-color); background-color: #e2f6f3; }
-    .word-bank { margin-top: 1rem; padding: 1rem; background: #e9c46a30; border-radius: 10px; min-height: 5em; }
+    .word-bank {
+        margin-top: 1rem; padding: 1rem; background: #e9c46a30;
+        border-radius: 10px; min-height: 5em;
+    }
     .draggable {
-      display: inline-block; background: var(--secondary-color); margin: 0.5em; padding: 0.8em 1.2em;
-      border-radius: 10px; cursor: move; color: var(--text-color); font-weight: 700;
+      display: inline-block; background: var(--secondary-color); margin: 0.5em;
+      padding: 0.8em 1.2em; border-radius: 10px; cursor: move;
+      color: var(--text-color); font-weight: 700;
     }
     #final-question-container {
-        margin-top: 2rem; padding: 1.5rem; background-color: #e2f6f3; border-radius: 10px; text-align: center;
+        margin-top: 2rem; padding: 1.5rem; background-color: #e2f6f3;
+        border-radius: 10px; text-align: center;
     }
     #final-question-container input {
         border: 2px solid var(--primary-color); padding: 0.5rem; font-family: 'Nunito', sans-serif;
@@ -123,8 +97,8 @@
 
     .quiz-options { display: flex; flex-direction: column; gap: 1em; margin-top: 1em; }
     .quiz-option {
-      background: var(--card-bg); border: 2px solid #ddd; border-radius: 12px; padding: 1em;
-      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+      background: var(--card-bg); border: 2px solid #ddd; border-radius: 12px;
+      padding: 1em; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
     }
     .quiz-option:hover { transform: scale(1.02); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); }
     .quiz-option.correct { background-color: #d1f7c4; border-color: var(--success-color); cursor: default; }
@@ -133,8 +107,9 @@
 
     #lueckentext-section p { text-align: center; font-size: 1.2rem; line-height: 2.5; }
     #lueckentext-section input {
-        border: none; border-bottom: 2px solid var(--primary-color); padding: 0.3rem; font-family: 'Nunito', sans-serif;
-        font-size: 1.1rem; width: 150px; text-align: center; background: transparent;
+        border: none; border-bottom: 2px solid var(--primary-color); padding: 0.3rem;
+        font-family: 'Nunito', sans-serif; font-size: 1.1rem; width: 150px;
+        text-align: center; background: transparent;
     }
     #lueckentext-section input:focus { outline: none; border-bottom-color: var(--secondary-color); }
 
@@ -143,8 +118,9 @@
     .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
     .card.revealed .card-inner { transform: rotateY(180deg); }
     .card-front, .card-back {
-        position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
-        display: flex; align-items: center; justify-content: center; border-radius: 10px; text-align: center;
+        position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden;
+        backface-visibility: hidden; display: flex; align-items: center; justify-content: center;
+        border-radius: 10px; text-align: center;
     }
     .card-front { background-color: var(--primary-color); color: var(--white); font-size: 2em; }
     .card-back { background-color: var(--secondary-color); color: var(--text-color); transform: rotateY(180deg); font-size: 0.9em; padding: 0.5em; }
@@ -166,22 +142,22 @@
     .teacher-btn { display: none; background-color: #e76f51; }
     .teacher-mode-active .teacher-btn { display: inline-block; }
     .wrong-selection { animation: blink-red 1s infinite; }
-    @keyframes blink-red {
-        0%, 100% { background-color: #ffc2d1; } 50% { background-color: var(--danger-color); }
-    }
+    @keyframes blink-red { 0%, 100% { background-color: transparent; } 50% { background-color: var(--danger-color); } }
     .missing-selection { background-color: #ffd70066; }
-    .hint-for-student { outline: 3px dashed var(--secondary-color); }
+    .hint-for-student { outline: 3px dashed var(--secondary-color); border-radius: 5px; }
 
     footer { text-align: center; margin-top: 3rem; padding: 1rem; color: #aaa; }
     #teacher-mode-activator { cursor: pointer; font-size: 1.5rem; user-select: none; }
 
     .modal {
-        display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-        background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;
+        display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+        width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
+        align-items: center; justify-content: center;
     }
     .modal-content {
-        background-color: var(--white); padding: 2rem; border-radius: 20px; text-align: center;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-width: 400px; width: 90%;
+        background-color: var(--white); padding: 2rem; border-radius: 20px;
+        text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        max-width: 400px; width: 90%;
         animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     .modal-icon { font-size: 4rem; }
@@ -196,8 +172,8 @@
     <h2> Willkommen auf der Elfchen-Webseite!</h2>
     <p>Heute wird’s kreativ: In dieser digitalen Lernumgebung dreht sich alles um <strong>Elfchen</strong> – kleine Gedichte mit genau elf Wörtern. Du findest hier <strong>6 interaktive Aufgaben</strong>, bei denen du spielerisch lernst, wie ein Elfchen funktioniert und wie du selbst eins schreiben kannst.</p>
     <p>Für jede gelöste Aufgabe bekommst du einen <strong>Buchstaben</strong>. Aber Achtung: Die Buchstaben sind durcheinandergewürfelt! Wenn du alle Stationen geschafft hast, kannst du das <strong>Lösungswort</strong> zusammensetzen. Kleiner Tipp: Es hat mit einem schlauen Tier zu tun.</p>
-    <p>Am Ende der Stunde schreibst du dein ganz eigenes Elfchen – auf Papier.</p>
-    <p><strong>Und jetzt: Los geht’s!</strong> Du kannst die Aufgaben in beliebiger Reihenfolge machen. Wenn du mal nicht weiterkommst, sprich uns gerne an.</p>
+    <p>Am Ende der Stunde schreibst du dein ganz eigenes Elfchen – auf Papier. Die besten Elfchen landen auf einer digitalen Pinnwand, auf der du und deine Klasse für eure Lieblingsgedichte abstimmen könnt.</p>
+    <p><strong>Und jetzt: Los geht’s!</strong> Du kannst die Aufgaben in beliebiger Reihenfolge machen. Wenn du mal nicht weiterkommst, ruf einfach eine Lehrkraft.</p>
   </section>
   <section id="was-ist-ein-elfchen" class="info-box">
     <h2>📚 Was ist ein Elfchen?</h2>
@@ -286,13 +262,13 @@
     <p>Klicke auf das Gedicht, das die 1-2-3-4-1 Wörter-Regel einhält!</p>
     <div class="quiz-options">
       <div class="quiz-option" onclick="checkRuleQuiz(this, false)">
-        Vertrauen<br> Geheimnisse für sich behalten<br> Wird mal schwer<br> Aber lohnt sich immer<br> Freundschaft
+        Vertrauen<br> Geheimnisse für sich behalten (5 Wörter)<br> Wird mal schwer<br> Aber lohnt sich immer<br> Freundschaft
       </div>
       <div class="quiz-option" onclick="checkRuleQuiz(this, true)">
         Erde<br> Überall Plastik<br> Tiere, Wälder, leiden<br> Kleine Tat, großes Wunder<br> Zukunft 
       </div>
       <div class="quiz-option" onclick="checkRuleQuiz(this, false)">
-        Angst<br> Klopfendes, pochendes Herz<br> Ersten Schritt machen <br> Gewinnen, verlieren, versuchen, scheitern<br> Mutig bleiben Hoffnung 
+        Angst<br> Klopfendes, pochendes Herz<br> Ersten Schritt machen <br> Gewinnen, verlieren, versuchen, scheitern<br> Mutig bleiben Hoffnung (3 Wörter)
       </div>
     </div>
   </div>
@@ -365,7 +341,8 @@
         <span id="teacher-mode-activator" title="Prüfmodus aktivieren">🔑</span>
     </footer>
 
-  <script>
+<script>
+    // --- Globale Variablen und Modal-Funktionen ---
     const modal = document.getElementById('myModal');
     const modalText = document.getElementById('modal-text');
     const modalIcon = document.querySelector('.modal-icon');
@@ -374,8 +351,11 @@
         modalIcon.textContent = isSuccess ? '🎉' : '🤔';
         modal.style.display = 'flex';
     }
-    function closeModal() { modal.style.display = 'none'; }
+    function closeModal() {
+        modal.style.display = 'none';
+    }
 
+    // --- Allgemeiner Prüfmodus ---
     const teacherModeActivator = document.getElementById('teacher-mode-activator');
     teacherModeActivator.addEventListener('click', () => {
         if (document.body.classList.contains('teacher-mode-active')) {
@@ -390,7 +370,7 @@
                 teacherModeActivator.textContent = '🔓';
                 teacherModeActivator.title = 'Prüfmodus ist aktiv. Klicken zum Beenden.';
                 showModal('Prüfmodus aktiviert!', true);
-            } else if (pass) {
+            } else if (pass) { // only show error if user entered something
                 showModal('Falsches Passwort.', false);
             }
         }
@@ -403,6 +383,7 @@
         document.getElementById('activate-hint-btn').style.display = 'none';
     }
     
+    // --- Logik für Aufgabe 1: Drag & Drop ---
     let draggedItem = null;
     const puzzleSolutions = {
         1: ['Knospen', 'werden grün', 'duftet nach Regen', 'Bienen summen um Blumen', 'Neuanfang'],
@@ -462,6 +443,7 @@
         }
     }
 
+    // --- Logik für Aufgabe 2 & 3: Quiz ---
     function handleQuizSelection(element, isCorrect, sectionId, rewardId, successMsg) {
         const options = document.querySelectorAll(`#${sectionId} .quiz-option`);
         options.forEach(opt => opt.classList.remove('selected', 'incorrect'));
@@ -479,6 +461,7 @@
     function checkRuleQuiz(element, isCorrect) { handleQuizSelection(element, isCorrect, 'quiz-section', 'reward-quiz', "Richtig, das ist ein perfektes Elfchen! Du erhältst den Buchstaben: <b>F</b>"); }
     function checkEmojiQuiz(element, isCorrect) { handleQuizSelection(element, isCorrect, 'emoji-elfchen-section', 'reward-emoji', "Genau das ist gemeint! Du erhältst den Buchstaben: <b>H</b>"); }
 
+    // --- Logik für Aufgabe 4: Lückentext ---
     function checkLueckentext() {
         const answers = {
             l1: document.getElementById('luecke1').value.trim().toLowerCase(),
@@ -496,6 +479,7 @@
         }
     }
     
+    // --- Logik für Aufgabe 5: Memory ---
     const memoryCardsData = [
         { id: 1, text: "Sonne" }, { id: 1, text: "scheint hell draußen" }, { id: 2, text: "Ferien" }, { id: 2, text: "keine Hausaufgaben" },
         { id: 3, text: "Angst" }, { id: 3, text: "klopfendes Herz" }, { id: 4, text: "Pause" }, { id: 4, text: "Fußball, Musik hören" },
@@ -538,14 +522,17 @@
     }
     function resetMemory() { flippedCards = []; setupMemory(); document.getElementById('reward-memory').style.display = 'none'; }
     
+    // --- Logik für Aufgabe 6: Wortarten ---
     const wortartenTextContent = `Ein Elfchen ist viel mehr als nur ein kurzes Gedicht. Es ist eine Einladung, mit Sprache zu spielen, Worte zu finden, die sonst vielleicht ungesagt bleiben. In nur elf Wörtern entsteht eine kleine Welt: ein Gedanke, eine Stimmung, ein Gefühl, manchmal sogar ein ganzes Abenteuer. Elfchen helfen uns, genau hinzusehen – auf das, was wir fühlen, was wir denken, und was wir sagen wollen. Sie zeigen, wie stark ein einziges Wort sein kann, und wie groß ein kleiner Moment werden darf, wenn wir ihm einen Rahmen geben. Elfchen fordern uns heraus, mit wenig viel zu sagen. Sie trainieren unseren Kopf, unser Herz und unsere Fantasie. Sie bringen uns dazu, über den Tellerrand hinauszudenken: Welche Adjektive passen zu dem, was ich fühle? Welche Verben erzählen von dem, was passiert? Und welche Nomen geben meiner Geschichte ein Gesicht, einen Ort, eine Farbe? Ein Elfchen kann der Anfang von allem sein: der erste Satz eines Gedichts, der Einstieg in ein Tagebuch, ein Gedanke, der größer wird, je mehr wir darüber nachdenken. Manchmal ist ein Elfchen auch einfach ein kleiner Zauber – ein Gedanke, den wir festhalten, bevor er davonfliegt. Es ist leise und still, aber es kann laut in uns nachklingen. Wer ein Elfchen schreibt, lernt nicht nur, die Regeln eines Gedichts zu verstehen – er übt, Sprache bewusst einzusetzen, Gedanken zu ordnen, Gefühle zuzulassen. Er übt, ehrlich zu sein. Denn Elfchen zwingen uns, zu reduzieren, zu entscheiden: Was ist wirklich wichtig? Was muss gesagt werden – und was darf unausgesprochen bleiben? Vielleicht wird ein Elfchen später einmal der erste Schritt in einen eigenen Gedichtband, der Anfang eines Liebesbriefes, der Text auf einer Postkarte, die jemand zum Geburtstag bekommt. Vielleicht bleibt es einfach eine kleine Notiz am Rand eines Heftes, die später, wenn wir erwachsen sind, ein Lächeln auf unser Gesicht zaubert. Elfchen sind klein, ja. Aber sie zeigen: Worte sind groß. Und wer lernt, Worte zu wählen, der lernt auch, zuzuhören.`;
-    const wordTypes = {'heftes':'noun','liebesbriefes':'noun','liebesbriefs':'noun','elfchen':'noun','einladung':'noun','sprache':'noun','worte':'noun','wörtern':'noun','welt':'noun','gedanke':'noun','stimmung':'noun','gefühl':'noun','abenteuer':'noun','wort':'noun','moment':'noun','rahmen':'noun','kopf':'noun','herz':'noun','fantasie':'noun','tellerrand':'noun','adjektive':'noun','verben':'noun','nomen':'noun','geschichte':'noun','gesicht':'noun','ort':'noun','farbe':'noun','anfang':'noun','satz':'noun','gedichts':'noun','einstieg':'noun','tagebuch':'noun','zauber':'noun','regeln':'noun','gedanken':'noun','gefühle':'noun','schritt':'noun','gedichtband':'noun','liebesbrief':'noun','text':'noun','postkarte':'noun','geburtstag':'noun','notiz':'noun','rand':'noun','heft':'noun','lächeln':'noun','kleine':'adj','größer':'adj','kleiner':'adj','genau':'adj','ganzes':'adj','groß':'adj','kurzes':'adj','klein':'adj','kurz':'adj','leise':'adj','laut':'adj','ehrlich':'adj','wichtig':'adj','still':'adj','unvergessen':'adj','besonders':'adj','bewusst':'adj','ganz':'adj','stark':'adj','einzig':'adj','wenig':'adj','viel':'adj','unausgesprochen':'adj','erst':'adj','eigen':'adj','erwachsen':'adj','passen':'verb','zuzuhören':'verb','lernt':'verb','zaubert':'verb','bleibt':'verb','bekommt':'verb','darf':'verb','gesagt':'verb','muss':'verb','zwingen':'verb','zuzulassen':'verb','einzusetzen':'verb','übt':'verb','schreibt':'verb','davonfliegt':'verb','ist':'verb','wird':'verb','kann':'verb','passiert':'verb','fühle':'verb','entsteht':'verb','ungesagt':'verb','schreiben':'verb','fühlen':'verb','denken':'verb','ordnen':'verb','zulassen':'verb','sagen':'verb','zeigen':'verb','üben':'verb','sein':'verb','spielen':'verb','finden':'verb','bleiben':'verb','entstehen':'verb','helfen':'verb','hinzusehen':'verb','wollen':'verb','werden':'verb','geben':'verb','fordern':'verb','trainieren':'verb','bringen':'verb','hinauszudenken':'verb','passen':'verb','erzählen':'verb','nachdenken':'verb','festhalten':'verb','davonfliegen':'verb','nachklingen':'verb','lernen':'verb','verstehen':'verb','reduzieren':'verb','entscheiden':'verb','zaubern':'verb','wählen':'verb'};
+    const wordTypes = {'heftes':'noun','liebesbriefes':'noun','liebesbriefs':'noun','elfchen':'noun','einladung':'noun','sprache':'noun','worte':'noun','wörtern':'noun','welt':'noun','gedanke':'noun','stimmung':'noun','gefühl':'noun','abenteuer':'noun','wort':'noun','moment':'noun','rahmen':'noun','kopf':'noun','herz':'noun','fantasie':'noun','tellerrand':'noun','adjektive':'noun','verben':'noun','nomen':'noun','geschichte':'noun','gesicht':'noun','ort':'noun','farbe':'noun','anfang':'noun','satz':'noun','gedichts':'noun','einstieg':'noun','tagebuch':'noun','zauber':'noun','regeln':'noun','gedanken':'noun','gefühle':'noun','schritt':'noun','gedichtband':'noun','liebesbrief':'noun','text':'noun','postkarte':'noun','geburtstag':'noun','notiz':'noun','rand':'noun','heft':'noun','lächeln':'noun','kleine':'adj','größer':'adj','kleiner':'adj','genau':'adj','ganzes':'adj','groß':'adj','kurzes':'adj','klein':'adj','kurz':'adj','leise':'adj','laut':'adj','ehrlich':'adj','wichtig':'adj','still':'adj','unvergessen':'adj','besonders':'adj','bewusst':'adj','ganz':'adj','stark':'adj','einzig':'adj','wenig':'adj','viel':'adj','unausgesprochen':'adj','erst':'adj','eigen':'adj','erwachsen':'adj','zuzuhören':'verb','lernt':'verb','zaubert':'verb','bleibt':'verb','bekommt':'verb','darf':'verb','gesagt':'verb','muss':'verb','zwingen':'verb','zuzulassen':'verb','einzusetzen':'verb','übt':'verb','schreibt':'verb','davonfliegt':'verb','ist':'verb','wird':'verb','kann':'verb','passiert':'verb','fühle':'verb','entsteht':'verb','ungesagt':'verb','schreiben':'verb','fühlen':'verb','denken':'verb','ordnen':'verb','zulassen':'verb','sagen':'verb','zeigen':'verb','üben':'verb','sein':'verb','spielen':'verb','finden':'verb','bleiben':'verb','entstehen':'verb','helfen':'verb','hinzusehen':'verb','wollen':'verb','werden':'verb','geben':'verb','fordern':'verb','trainieren':'verb','bringen':'verb','hinauszudenken':'verb','passen':'verb','erzählen':'verb','nachdenken':'verb','festhalten':'verb','davonfliegen':'verb','nachklingen':'verb','lernen':'verb','verstehen':'verb','reduzieren':'verb','entscheiden':'verb','zaubern':'verb','wählen':'verb'};
     let currentWordType = '';
+    
     function setCurrentType(type, btnElement) { 
         currentWordType = type; 
         document.querySelectorAll('.selector .button').forEach(btn => btn.classList.remove('active'));
         btnElement.classList.add('active');
     }
+    
     function createWortartenText() {
         const container = document.getElementById('wortarten-text');
         const words = wortartenTextContent.split(/([,.\s]+)/);
@@ -554,25 +541,39 @@
             if (word.match(/([,.\s]+)/)) { container.appendChild(document.createTextNode(word)); } 
             else {
                 const span = document.createElement('span');
-                span.classList.add('word'); span.textContent = word;
+                span.classList.add('word');
+                span.textContent = word;
                 span.onclick = () => toggleWord(span);
                 container.appendChild(span);
             }
         });
     }
+    
     function toggleWord(span) {
-        if (!currentWordType) { showModal('Wähle zuerst eine Wortart aus!', false); return; }
+        if (!currentWordType) {
+            showModal('Wähle zuerst eine Wortart aus!', false);
+            return;
+        }
+        span.classList.remove('wrong-selection', 'hint-for-student', 'missing-selection');
         const classes = ['selected-noun', 'selected-verb', 'selected-adj'];
         const currentClass = `selected-${currentWordType}`;
-        if (span.classList.contains(currentClass)) { span.classList.remove(currentClass); } 
-        else { span.classList.remove(...classes); span.classList.add(currentClass); }
+        if (span.classList.contains(currentClass)) {
+            span.classList.remove(currentClass);
+        } else {
+            span.classList.remove(...classes);
+            span.classList.add(currentClass);
+        }
     }
+    
     function checkAllWords() {
-        const spans = document.querySelectorAll('#wortarten-text .word'); let allCorrect = true;
+        let allCorrect = true;
+        const spans = document.querySelectorAll('#wortarten-text .word');
         for (const span of spans) {
             const cleanWord = span.textContent.toLowerCase().replace(/[^a-zäöüß]/g, '');
             const expectedType = wordTypes[cleanWord];
-            const isNoun = span.classList.contains('selected-noun'); const isVerb = span.classList.contains('selected-verb'); const isAdj = span.classList.contains('selected-adj');
+            const isNoun = span.classList.contains('selected-noun');
+            const isVerb = span.classList.contains('selected-verb');
+            const isAdj = span.classList.contains('selected-adj');
             if ( (expectedType === 'noun' && !isNoun) || (expectedType !== 'noun' && isNoun) ) allCorrect = false;
             if ( (expectedType === 'verb' && !isVerb) || (expectedType !== 'verb' && isVerb) ) allCorrect = false;
             if ( (expectedType === 'adj' && !isAdj) || (expectedType !== 'adj' && isAdj) ) allCorrect = false;
@@ -585,6 +586,7 @@
             showModal('Noch nicht ganz richtig. Überprüfe deine markierten Wörter nochmal.', false);
         }
     }
+    
     function checkWortartenForTeacher() {
         clearAllHintsAndChecks();
         const spans = document.querySelectorAll('#wortarten-text .word');
@@ -592,14 +594,20 @@
             const cleanWord = span.textContent.toLowerCase().replace(/[^a-zäöüß]/g, '');
             const expectedType = wordTypes[cleanWord];
             if (!expectedType) return;
-            const isNoun = span.classList.contains('selected-noun'); const isVerb = span.classList.contains('selected-verb'); const isAdj = span.classList.contains('selected-adj');
+            const isNoun = span.classList.contains('selected-noun');
+            const isVerb = span.classList.contains('selected-verb');
+            const isAdj = span.classList.contains('selected-adj');
             const isSelected = isNoun || isVerb || isAdj;
             let isCorrectlySelected = (expectedType === 'noun' && isNoun) || (expectedType === 'verb' && isVerb) || (expectedType === 'adj' && isAdj);
-            if (isSelected && !isCorrectlySelected) { span.classList.add('wrong-selection'); } 
-            else if (!isSelected) { span.classList.add('missing-selection'); }
+            if (isSelected && !isCorrectlySelected) {
+                span.classList.add('wrong-selection');
+            } else if (!isSelected) {
+                span.classList.add('missing-selection');
+            }
         });
         document.getElementById('activate-hint-btn').style.display = 'inline-block';
     }
+    
     function activateStudentHints() {
         document.querySelectorAll('.missing-selection').forEach(span => {
             span.classList.remove('missing-selection');
@@ -608,11 +616,13 @@
         document.getElementById('activate-hint-btn').style.display = 'none';
     }
 
+    // --- Initialisierung beim Laden der Seite ---
     document.addEventListener('DOMContentLoaded', () => {
         initializeDragAndDrop();
         setupMemory();
         createWortartenText();
     });
-  </script>
+</script>
+
 </body>
 </html>
